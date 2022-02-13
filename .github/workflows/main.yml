@@ -1,0 +1,25 @@
+on:
+  push:
+  workflow_dispatch:
+  schedule:
+    - cron: "6,36 * * * *"
+
+jobs:
+  backup_job:
+    runs-on: ubuntu-latest
+    name: Backup my Kinopio spaces
+    steps:
+      - name: Check out this repo
+        uses: actions/checkout@v2
+      - name: Backup
+        env:
+          KINOPIO_API_KEY: ${{ secrets.KINOPIO_API_KEY }}
+        uses: bentsai/kinopio-backup-action@v1.9
+      - name: Commit and push if it changed
+        run: |-
+          git config user.name "Automated"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          timestamp=$(date -u)
+          git commit -m "Latest data: ${timestamp}" || exit 0
+          git push
