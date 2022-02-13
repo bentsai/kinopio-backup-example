@@ -5,3 +5,4 @@ Use this example to automate regular backups of your [Kinopio](https://kinopio.c
 1. Create a new repository using this repository as a template.
 2. Obtain [your Kinopio API key](https://help.kinopio.club/api/).
 3. Create a new repository secret (`settings/secrets/actions`) called `KINOPIO_API_KEY` with the value.
+4. That *might* be it. The action is set to run every 30 minutes.
